@@ -795,6 +795,45 @@
       .bekal { grid-template-columns: 1fr; }
       .form { grid-template-columns: 1fr; padding: 22px; }
     }
+
+    /* Light sweep - after "Motion Prompt #022" (c) 2026 Shohei Ohtaki, MIT License */
+    .sheen { position: relative; }
+    .btn.sheen { overflow: visible; }
+    .btn.sheen::after { display: none; }
+    .sheen__clip { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; z-index: 2; }
+    .sheen__band {
+      position: absolute; top: -150%; bottom: -150%; left: -188px; width: 148px;
+      transform: rotate(24deg);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.72), rgba(255,255,255,0)) 0 0 / 116px 100% no-repeat,
+        linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)) 136px 0 / 12px 100% no-repeat;
+      animation: sheenSweep 2.35s infinite; animation-delay: var(--sd, 0s);
+    }
+    @keyframes sheenSweep {
+      0%, 19.15% { left: -188px; animation-timing-function: cubic-bezier(.455,.03,.515,.955); }
+      63.83%, 100% { left: calc(100% + 72px); }
+    }
+    .sheen__star {
+      position: absolute; right: -7px; top: -9px; width: 30px; height: 30px; z-index: 3; pointer-events: none;
+      background: #fff; transform: scale(0);
+      clip-path: polygon(50% 0, 57.8% 42.2%, 100% 50%, 57.8% 57.8%, 50% 100%, 42.2% 57.8%, 0 50%, 42.2% 42.2%);
+      animation: sheenStar 2.35s infinite; animation-delay: var(--sd, 0s);
+    }
+    @keyframes sheenStar {
+      0%, 58.72% { transform: scale(0); }
+      58.72% { transform: scale(0.000) rotate(0.0deg); }
+      61.28% { transform: scale(0.365) rotate(5.2deg); }
+      63.83% { transform: scale(0.682) rotate(10.3deg); }
+      66.38% { transform: scale(0.922) rotate(15.5deg); }
+      68.94% { transform: scale(1.065) rotate(20.6deg); }
+      71.49% { transform: scale(1.100) rotate(25.8deg); }
+      74.04% { transform: scale(1.027) rotate(30.9deg); }
+      76.60% { transform: scale(0.858) rotate(36.1deg); }
+      79.15% { transform: scale(0.611) rotate(41.3deg); }
+      81.70% { transform: scale(0.315) rotate(46.4deg); }
+      84.26% { transform: scale(0.000) rotate(51.6deg); }
+      100% { transform: scale(0); }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -858,16 +897,16 @@
       </div>
       <div class="hero__stats">
         <div>
-          <div class="hero__stat-num">~selalu redy kapan aja</div>
-          <div class="hero__stat-label">24jam</div>
+          <div class="hero__stat-num">~10 Jam</div>
+          <div class="hero__stat-label">Medan ke Dumai</div>
         </div>
         <div>
           <div class="hero__stat-num">20+</div>
           <div class="hero__stat-label">Rute Aktif</div>
         </div>
         <div>
-          <div class="hero__stat-num">SETIAP HARI</div>
-          <div class="hero__stat-label">TANPA LIBUR</div>
+          <div class="hero__stat-num">Tiap Hari</div>
+          <div class="hero__stat-label">Tanpa Libur</div>
         </div>
       </div>
     </div>
@@ -898,7 +937,7 @@
     </div>
     <ol class="jalur__steps" data-draw>
       <li class="step"><span class="step__n">1</span><h3>Kirim pesan</h3><p>Tulis asal, tujuan, dan jam yang kamu mau. Kami balas dengan seat dan tarif.</p></li>
-      <li class="step"><span class="step__n">2</span><h3>PROSES MELALUI PESAN CEPAT</h3><p>Setelah kamu setuju, kursimu dicatat. Angka yang disebut di awal tidak berubah.</p></li>
+      <li class="step"><span class="step__n">2</span><h3>Seat dikunci</h3><p>Setelah kamu setuju, kursimu dicatat. Angka yang disebut di awal tidak berubah.</p></li>
       <li class="step"><span class="step__n">3</span><h3>Dijemput di rumah</h3><p>Mobil berhenti di alamatmu sesuai jam yang disepakati. Koper kami yang angkat.</p></li>
       <li class="step"><span class="step__n">4</span><h3>Lewat jalan tol</h3><p>Rute yang mulus dipilih supaya badan tidak remuk dan waktu tempuh lebih pendek.</p></li>
       <li class="step"><span class="step__n">5</span><h3>Turun di tujuan</h3><p>Kamu diantar sampai alamat yang dituju, bukan diturunkan di pinggir terminal.</p></li>
@@ -1195,6 +1234,13 @@
   });
 
   document.querySelectorAll('[data-draw]').forEach(function (el) { if (reduce) el.classList.add('in'); else io.observe(el); });
+
+  /* light sweep (Motion Prompt #022, MIT) */
+  document.querySelectorAll('.header__brand, .btn-wa, .btn-teal').forEach(function (el, i) {
+    el.classList.add('sheen');
+    el.style.setProperty('--sd', (-(i % 4) * 0.6) + 's');
+    el.insertAdjacentHTML('beforeend', '<i class="sheen__clip" aria-hidden="true"><i class="sheen__band"></i></i><i class="sheen__star" aria-hidden="true"></i>');
+  });
 
   if (!fine || reduce) return;
 
