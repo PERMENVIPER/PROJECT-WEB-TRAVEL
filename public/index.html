@@ -834,6 +834,34 @@
       84.26% { transform: scale(0.000) rotate(51.6deg); }
       100% { transform: scale(0); }
     }
+
+    /* Loading button - after "Motion Prompt #160" (c) 2026 Shohei Ohtaki, MIT License */
+    .lb {
+      --lbh: 52px; justify-self: center; height: var(--lbh); padding: 0 30px; white-space: nowrap;
+      transition: width .3s cubic-bezier(.65,0,.35,1), background .25s, padding .3s, opacity .2s,
+                  transform .18s, box-shadow .18s, translate .3s cubic-bezier(.2,.8,.2,1);
+    }
+    .lb__label { transition: opacity .1s; }
+    .lb__spin, .lb__done { position: absolute; left: 50%; top: 50%; opacity: 0; pointer-events: none; }
+    .lb__spin { width: 24px; height: 24px; margin: -12px 0 0 -12px; transition: opacity .1s; }
+    .lb__track, .lb__arc { fill: none; stroke-width: 3; stroke-linecap: round; }
+    .lb__track { stroke: rgba(255,255,255,.35); }
+    .lb__arc { stroke: #fff; stroke-dasharray: 35 65; transform-origin: 50% 50%; animation: lbSpin .7s linear infinite; }
+    @keyframes lbSpin { to { transform: rotate(360deg); } }
+    .lb__done { display: inline-flex; align-items: center; gap: 8px; transform: translate(-50%, -50%); font-weight: 800; transition: opacity .2s .15s; }
+    .lb__done svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .lb__done path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .25s ease-out; }
+    .lb.is-busy { width: var(--lbh); padding: 0; background: var(--navy-light); pointer-events: none; }
+    .lb.is-busy .lb__label { opacity: 0; }
+    .lb.is-busy .lb__spin { opacity: 1; transition-delay: .3s; }
+    .lb.is-done { padding: 0; background: #1E9E5A; pointer-events: none; }
+    .lb.is-done .lb__label { opacity: 0; }
+    .lb.is-done .lb__done { opacity: 1; }
+    .lb.is-done .lb__done path { stroke-dashoffset: 0; }
+    .lb.is-out { opacity: 0; }
+    .lb.is-back { animation: lbBack .3s cubic-bezier(.2,.8,.2,1) backwards; }
+    @keyframes lbBack { from { opacity: 0; translate: 0 6px; } }
+    .lb.is-busy .sheen__clip, .lb.is-busy .sheen__star, .lb.is-done .sheen__clip, .lb.is-done .sheen__star { opacity: 0; }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -973,7 +1001,7 @@
       <div class="field"><label for="fJam">Waktu yang diinginkan</label>
         <select id="fJam"><option>Pagi</option><option>Siang</option><option>Sore</option><option>Malam</option></select></div>
       <div class="field field--wide"><label for="fAlamat">Alamat jemput</label><input id="fAlamat" required placeholder="Nama jalan, nomor, patokan" /></div>
-      <button class="btn btn-wa" type="submit">Kirim lewat WhatsApp</button>
+      <button class="btn btn-wa lb" id="lbBtn" type="submit"><span class="lb__label">Kirim lewat WhatsApp</span><svg class="lb__spin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" class="lb__track"/><circle cx="12" cy="12" r="10" class="lb__arc" pathLength="100"/></svg><span class="lb__done" aria-hidden="true"><svg viewBox="0 0 24 24"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7.5"/></svg>Selesai</span></button>
       <p class="form__note">Tombol ini membuka WhatsApp dengan pesan yang sudah terisi. Kamu masih bisa mengubahnya sebelum mengirim.</p>
       <datalist id="kota"></datalist>
     </form>
@@ -1146,8 +1174,27 @@
       'Waktu: ' + v('fJam'),
       'Penumpang: ' + v('fOrang') + ' orang',
       'Alamat jemput: ' + v('fAlamat')].join('\n');
-    window.open(wa(msg), '_blank', 'noopener');
+    runSend(wa(msg));
   });
+
+  /* tombol loading: mengecil jadi bulat, berputar, lalu "Selesai" */
+  var lb = document.getElementById('lbBtn'), lbBusy = false;
+  function runSend(url) {
+    if (lbBusy) return; lbBusy = true;
+    var w0 = lb.offsetWidth;
+    lb.style.width = w0 + 'px'; void lb.offsetWidth;
+    lb.classList.add('is-busy'); lb.style.width = '52px';
+    setTimeout(function () { lb.classList.remove('is-busy'); lb.classList.add('is-done'); lb.style.width = '170px'; }, 1300);
+    setTimeout(function () {
+      var w = window.open(url, '_blank');
+      if (w) { try { w.opener = null; } catch (e) {} } else { location.href = url; }
+    }, 1800);
+    setTimeout(function () { lb.classList.add('is-out'); }, 3300);
+    setTimeout(function () {
+      lb.classList.remove('is-done', 'is-out'); lb.classList.add('is-back'); lb.style.width = w0 + 'px';
+      setTimeout(function () { lb.classList.remove('is-back'); lb.style.width = ''; lbBusy = false; }, 420);
+    }, 3600);
+  }
 })();
 </script>
 <script>
