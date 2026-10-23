@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Travel Medan Dumai | Antar Jemput Resmi — 085358363148</title>
-  <meta name="description" content="Travel Medan Dumai terpercaya. Armada terbaru, supir berpengalaman, antar jemput alamat, berangkat setiap hari. Pesan sekarang: 085358363148." />
-  <meta name="keywords" content="travel medan dumai, travel dumai medan, travel medan dumai murah, travel medan dumai terpercaya, antar jemput medan dumai" />
-  <meta property="og:title" content="Travel Medan Dumai | Antar Jemput Resmi" />
-  <meta property="og:description" content="Perjalanan Medan–Dumai lebih mudah, aman, dan nyaman bersama kami. Pesan via WhatsApp 24 jam." />
+  <title>Travel Medan Dumai - Dijemput di Rumah, Diantar ke Alamat Tujuan</title>
+  <meta name="description" content="Berangkat dari Medan atau Dumai tanpa oper-operan. Mobil menjemput di alamatmu dan berhenti di depan tujuan. Pesan lewat WhatsApp 085358363148." />
+  <meta name="keywords" content="travel medan dumai, antar jemput medan dumai, travel dumai medan, travel sumatera utara riau" />
+  <meta property="og:title" content="Travel Medan Dumai - Dijemput di Rumah, Diantar ke Tujuan" />
+  <meta property="og:description" content="Dari pintu rumah sampai pintu tujuan, Medan dan Dumai tanpa pindah-pindah mobil." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logo.png" type="image/png" />
 
@@ -710,6 +710,91 @@
       border: 2px solid #25D366; opacity: 0; pointer-events: none;
       animation: ring 2.2s ease-out infinite;
     }
+
+
+    /* ---------- HALAMAN BARU: alur, pesan, tujuan ---------- */
+    .jalur { background: var(--off); padding: 84px 0 76px; }
+    .jalur__head { max-width: 560px; margin-bottom: 52px; }
+    .jalur__steps { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); position: relative; }
+    .jalur__steps::before {
+      content: ''; position: absolute; top: 25px; left: 26px; right: 10%; height: 2px;
+      background: repeating-linear-gradient(90deg, var(--teal) 0 10px, transparent 10px 20px);
+    }
+    .js .jalur__steps::before { transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(.2,.8,.2,1) .2s; }
+    .js .jalur__steps.in::before { transform: scaleX(1); }
+    .step { position: relative; padding-right: 20px; }
+    .step__n {
+      width: 52px; height: 52px; border-radius: 50%; background: var(--navy); color: var(--teal);
+      font-family: var(--font-display); font-size: 1.7rem; display: grid; place-items: center;
+      position: relative; z-index: 1; margin-bottom: 18px; box-shadow: 0 0 0 7px var(--off);
+    }
+    .step h3 { font-family: var(--font-display); font-size: 1.55rem; letter-spacing: .02em; line-height: 1.1; color: var(--navy); margin-bottom: 6px; font-weight: 400; }
+    .step p { font-size: .92rem; line-height: 1.6; color: #4b647a; }
+    .bekal { list-style: none; margin-top: 60px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; border-top: 1px solid var(--border); }
+    .bekal li { position: relative; padding: 16px 0 16px 34px; border-bottom: 1px solid var(--border); font-weight: 800; color: var(--navy); }
+    .bekal li span { display: block; font-weight: 400; font-size: .9rem; color: #5a7388; }
+    .bekal li::before { content: ''; position: absolute; left: 3px; top: 23px; width: 13px; height: 7px; border-left: 3px solid var(--teal); border-bottom: 3px solid var(--teal); transform: rotate(-45deg); }
+
+    .pesan { background: var(--navy); color: var(--white); padding: 88px 0; }
+    .pesan__grid { display: grid; grid-template-columns: 5fr 6fr; gap: 60px; align-items: start; }
+    .pesan__side p { color: rgba(255,255,255,.7); max-width: 380px; margin: 16px 0 28px; }
+    .pesan__kontak { display: grid; gap: 6px; font-weight: 700; }
+    .pesan__kontak a { color: var(--teal); }
+    .form { background: var(--white); color: var(--text); border-radius: var(--r-lg); padding: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+    .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .field--wide { grid-column: 1 / -1; }
+    .field label { font-size: .85rem; font-weight: 800; color: var(--teal-deep); }
+    .field input, .field select {
+      font: inherit; width: 100%; padding: 12px 14px; border: 1.5px solid #cfe3ea; border-radius: var(--r-sm);
+      background: #f8fcfd; color: var(--text); transition: border-color .2s, box-shadow .2s;
+    }
+    .field input:focus, .field select:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px var(--teal-glow); }
+    .form .btn { grid-column: 1 / -1; justify-content: center; }
+    .form__note { grid-column: 1 / -1; font-size: .82rem; color: var(--muted); }
+
+    .tujuan { background: var(--white); padding: 88px 0; }
+    .tujuan__head { max-width: 560px; }
+    .tujuan__bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 30px 0 14px; }
+    .swap {
+      display: inline-flex; align-items: center; gap: 12px; padding: 12px 20px; border: none; cursor: pointer;
+      border-radius: 100px; background: var(--navy); color: var(--white); font: inherit; font-weight: 800;
+    }
+    .swap svg { width: 20px; height: 20px; stroke: var(--teal); fill: none; stroke-width: 2.2; transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+    .swap:hover svg { transform: rotate(180deg); }
+    .tujuan__q { flex: 1; min-width: 200px; font: inherit; padding: 12px 16px; border: 1.5px solid #cfe3ea; border-radius: 100px; background: #f8fcfd; color: var(--text); }
+    .tujuan__q:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px var(--teal-glow); }
+    .tujuan__count { font-size: .85rem; color: var(--muted); margin-bottom: 18px; }
+    .tujuan__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+    .dest {
+      display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border: 1.5px solid #dbebf0; border-radius: var(--r-md);
+      color: var(--navy); font-weight: 800; background: var(--white);
+      transition: border-color .2s, background .2s, transform .2s;
+      animation: rise .5s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: calc(var(--i, 0) * 28ms);
+    }
+    .dest small { font-weight: 600; color: var(--muted); }
+    .dest:hover { border-color: var(--teal); background: var(--off); transform: translateY(-2px); }
+    .tujuan__kosong { margin-top: 8px; padding: 18px 20px; border-radius: var(--r-md); background: var(--off); color: var(--text); }
+    .tujuan__kosong a { color: var(--teal-deep); font-weight: 800; text-decoration: underline; }
+
+    .band { background: var(--navy-mid); padding: 46px 0; }
+    .band__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .band__title { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--white); line-height: 1.1; font-weight: 400; }
+    .band__inner p { color: rgba(255,255,255,.65); }
+
+    @media (max-width: 900px) {
+      .jalur__steps { grid-template-columns: 1fr; gap: 30px; }
+      .jalur__steps::before { top: 26px; bottom: 26px; left: 25px; right: auto; width: 2px; height: auto;
+        background: repeating-linear-gradient(180deg, var(--teal) 0 10px, transparent 10px 20px); }
+      .js .jalur__steps::before { transform: scaleY(0); transform-origin: top; }
+      .js .jalur__steps.in::before { transform: scaleY(1); }
+      .step { padding: 0 0 0 76px; min-height: 52px; }
+      .step__n { position: absolute; left: 0; top: 0; margin: 0; }
+      .pesan__grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 600px) {
+      .bekal { grid-template-columns: 1fr; }
+      .form { grid-template-columns: 1fr; padding: 22px; }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -727,8 +812,8 @@
     </a>
     <nav class="header__nav" aria-label="Navigasi utama">
       <a href="#top">Beranda</a>
-      <a href="#keunggulan">Keunggulan</a>
-      <a href="#kantor">Pemesanan</a>
+      <a href="#perjalanan">Alur</a>
+      <a href="#pesan">Pesan</a>
       <a href="#rute">Rute</a>
       <a href="#footer">Kontak</a>
     </nav>
@@ -742,8 +827,8 @@
   </div>
   <nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
     <a href="#top"        onclick="closeMobile()">Beranda</a>
-    <a href="#keunggulan" onclick="closeMobile()">Keunggulan</a>
-    <a href="#kantor"     onclick="closeMobile()">Pemesanan</a>
+    <a href="#perjalanan" onclick="closeMobile()">Alur</a>
+    <a href="#pesan"     onclick="closeMobile()">Pesan</a>
     <a href="#rute"       onclick="closeMobile()">Rute</a>
     <a href="#footer"     onclick="closeMobile()">Kontak</a>
     <a href="https://wa.me/6285358363148" target="_blank" rel="noopener" style="color:var(--teal)">WhatsApp Sekarang</a>
@@ -773,16 +858,16 @@
       </div>
       <div class="hero__stats">
         <div>
-          <div class="hero__stat-num">SELALU REDY</div>
-          <div class="hero__stat-label">24JAM</div>
+          <div class="hero__stat-num">~selalu redy kapan aja</div>
+          <div class="hero__stat-label">24jam</div>
         </div>
         <div>
           <div class="hero__stat-num">20+</div>
           <div class="hero__stat-label">Rute Aktif</div>
         </div>
         <div>
-          <div class="hero__stat-num">Tiap Hari</div>
-          <div class="hero__stat-label">Tanpa Libur</div>
+          <div class="hero__stat-num">SETIAP HARI</div>
+          <div class="hero__stat-label">TANPA LIBUR</div>
         </div>
       </div>
     </div>
@@ -804,294 +889,113 @@
 
 
 <!-- ── KEUNGGULAN ───────────────────────────────────────────────────── -->
-<section class="keunggulan" id="keunggulan">
+<section class="jalur" id="perjalanan">
   <div class="container">
-    <div class="keunggulan__head">
-      <span class="section-label">Mengapa Memilih Kami</span>
-      <h2 class="section-title">Keunggulan Layanan</h2>
+    <div class="jalur__head">
+      <span class="section-label">Alur perjalanan</span>
+      <h2 class="section-title">Dari chat pertama sampai turun di depan tujuan</h2>
       <div class="divider"></div>
     </div>
-
-    <div class="keunggulan__grid">
-      <div class="k-card">
-        <div class="k-card__icon">🏛️</div>
-        <div class="k-card__title">Izin Resmi & Terdaftar</div>
-        <div class="k-card__desc">Terdaftar resmi, bukan sekadar klaim di status WhatsApp. Izin lengkap, tanggung jawab penuh kalau ada apa-apa di jalan.</div>
-      </div>
-      <div class="k-card">
-        <div class="k-card__icon">🏠</div>
-        <div class="k-card__title">Antar Jemput Alamat</div>
-        <div class="k-card__desc">Kamu tunggu di rumah, kami yang datang. Dan kami antar sampai ke alamat tujuan — bukan sampai pool transit sepi di pinggir jalan.</div>
-      </div>
-      <div class="k-card">
-        <div class="k-card__icon">🧑‍✈️</div>
-        <div class="k-card__title">Supir Profesional</div>
-        <div class="k-card__desc">SIM resmi, rekam jejak bersih, dan tidak pegang HP sambil nyetir. Itu standar minimum kami — bukan nilai jual tambahan.</div>
-      </div>
-      <div class="k-card">
-        <div class="k-card__icon">🚐</div>
-        <div class="k-card__title">Armada Terbaru</div>
-        <div class="k-card__desc">AC dingin, kursi tidak ambles, tidak ada bau solar di kabin. Perjalanan 10 jam harusnya tidak terasa seperti hukuman.</div>
-      </div>
-      <div class="k-card">
-        <div class="k-card__icon">🛡️</div>
-        <div class="k-card__title">Asuransi Perjalanan</div>
-        <div class="k-card__desc">Terlindungi Jasa Raharja dan asuransi perjalanan. Semoga tidak pernah perlu dipakai — tapi ada kalau terjadi sesuatu di jalan.</div>
-      </div>
-      <div class="k-card">
-        <div class="k-card__icon">📅</div>
-        <div class="k-card__title">Berangkat Setiap Hari</div>
-        <div class="k-card__desc">Senin sampai Minggu, lebaran pun jalan. Tidak ada alasan "armada tidak ada" karena kami tidak kenal hari libur.</div>
-      </div>
-      <div class="k-card">
-        <div class="k-card__icon">💰</div>
-        <div class="k-card__title">Tarif Transparan</div>
-        <div class="k-card__desc">Harga yang disebut di awal adalah harga yang kamu bayar. Tidak ada "ongkos tambahan" yang muncul tiba-tiba di tengah perjalanan.</div>
-      </div>
-      <div class="k-card">
-        <div class="k-card__icon">🛣️</div>
-        <div class="k-card__title">Jalur Tol Langsung</div>
-        <div class="k-card__desc">Lewat tol, bukan jalan provinsi yang bikin pinggang nyeri sebelum sampai. Waktu tempuh lebih singkat, supir tidak kelelahan.</div>
-      </div>
-    </div>
+    <ol class="jalur__steps" data-draw>
+      <li class="step"><span class="step__n">1</span><h3>Kirim pesan</h3><p>Tulis asal, tujuan, dan jam yang kamu mau. Kami balas dengan seat dan tarif.</p></li>
+      <li class="step"><span class="step__n">2</span><h3>PROSES MELALUI PESAN CEPAT</h3><p>Setelah kamu setuju, kursimu dicatat. Angka yang disebut di awal tidak berubah.</p></li>
+      <li class="step"><span class="step__n">3</span><h3>Dijemput di rumah</h3><p>Mobil berhenti di alamatmu sesuai jam yang disepakati. Koper kami yang angkat.</p></li>
+      <li class="step"><span class="step__n">4</span><h3>Lewat jalan tol</h3><p>Rute yang mulus dipilih supaya badan tidak remuk dan waktu tempuh lebih pendek.</p></li>
+      <li class="step"><span class="step__n">5</span><h3>Turun di tujuan</h3><p>Kamu diantar sampai alamat yang dituju, bukan diturunkan di pinggir terminal.</p></li>
+    </ol>
+    <ul class="bekal">
+      <li>Izin operasional lengkap<span>Kami berjalan secara resmi, bukan sekadar mengaku.</span></li>
+      <li>Dilindungi Jasa Raharja dan asuransi<span>Ada pegangan kalau terjadi sesuatu di jalan.</span></li>
+      <li>Pengemudi ber-SIM resmi<span>Matanya ke jalan, bukan ke layar ponsel.</span></li>
+      <li>Mobil keluaran baru<span>Kabin dingin, kursi enak, tanpa bau solar.</span></li>
+      <li>Berangkat Senin sampai Minggu<span>Hari raya pun mobil tetap jalan.</span></li>
+      <li>Tarif disebut di depan<span>Yang disepakati di chat adalah yang dibayar.</span></li>
+    </ul>
   </div>
 </section>
 
-
-<!-- ── CTA STRIP ────────────────────────────────────────────────────── -->
-<section class="strip">
-  <div class="container">
-    <div class="strip__inner">
-      <div>
-        <h2 class="strip__title">Ada jadwal besok? Kami siap jemput malam ini.</h2>
-        <p class="strip__sub">Tidak perlu booking jauh-jauh hari. Chat kami, konfirmasi seat, dan kamu tinggal siap-siap koper.</p>
+<section class="pesan" id="pesan">
+  <div class="container pesan__grid">
+    <div class="pesan__side">
+      <span class="section-label">Pesan seat</span>
+      <h2 class="section-title light">Isi sekali, kirim sekali</h2>
+      <p>Lengkapi data di samping, lalu pesanmu terkirim ke WhatsApp kami sudah tertata rapi. Tidak perlu mengetik ulang dari awal.</p>
+      <div class="pesan__kontak">
+        <a href="tel:085358363148">085358363148</a>
+        <span>Kami membalas lewat WhatsApp kapan saja.</span>
       </div>
-      <a href="https://wa.me/6285358363148" class="btn btn-teal" target="_blank" rel="noopener" style="flex-shrink:0">
-        Chat WhatsApp
-      </a>
     </div>
+    <form class="form" id="pesanForm" autocomplete="off">
+      <div class="field"><label for="fNama">Nama</label><input id="fNama" required placeholder="Nama lengkap" /></div>
+      <div class="field"><label for="fOrang">Jumlah penumpang</label><input id="fOrang" type="number" min="1" max="12" value="1" required /></div>
+      <div class="field"><label for="fAsal">Berangkat dari</label><input id="fAsal" list="kota" required placeholder="Contoh: Medan" /></div>
+      <div class="field"><label for="fTujuan">Tujuan</label><input id="fTujuan" list="kota" required placeholder="Contoh: Dumai" /></div>
+      <div class="field"><label for="fTgl">Tanggal berangkat</label><input id="fTgl" type="date" required /></div>
+      <div class="field"><label for="fJam">Waktu yang diinginkan</label>
+        <select id="fJam"><option>Pagi</option><option>Siang</option><option>Sore</option><option>Malam</option></select></div>
+      <div class="field field--wide"><label for="fAlamat">Alamat jemput</label><input id="fAlamat" required placeholder="Nama jalan, nomor, patokan" /></div>
+      <button class="btn btn-wa" type="submit">Kirim lewat WhatsApp</button>
+      <p class="form__note">Tombol ini membuka WhatsApp dengan pesan yang sudah terisi. Kamu masih bisa mengubahnya sebelum mengirim.</p>
+      <datalist id="kota"></datalist>
+    </form>
   </div>
 </section>
 
-
-<!-- ── KANTOR / BOOKING ─────────────────────────────────────────────── -->
-<section class="booking" id="kantor">
+<section class="tujuan" id="rute">
   <div class="container">
-    <div class="booking__head">
-      <span class="section-label">Lokasi Loket</span>
-      <h2 class="section-title light">Kantor Pemesanan</h2>
-      <div class="divider" style="margin-inline:auto"></div>
-    </div>
-
-    <div class="booking__grid">
-      <div class="b-card">
-        <div class="b-card__label">Loket Asal Perjalanan</div>
-        <div class="b-card__name">Kantor Medan</div>
-        <div class="b-card__addr">
-          <span>📍</span>
-          <span>Jl. Nuri No.14, Tegal Sari Mandala II, Kec. Medan Denai, Kota Medan, Sumatera Utara 20224</span>
-        </div>
-        <div class="b-card__hours">
-          <span>🕐</span> Selalu Redy 24Jam
-        </div>
-        <div class="b-card__actions">
-          <a href="https://wa.me/6285358363148" class="btn btn-wa" target="_blank" rel="noopener">WhatsApp</a>
-          <a href="tel:085358363148" class="btn btn-ghost">Telepon</a>
-        </div>
-      </div>
-
-      <div class="b-card">
-        <div class="b-card__label">Loket Tujuan</div>
-        <div class="b-card__name">Kantor Dumai</div>
-        <div class="b-card__addr">
-          <span>📍</span>
-          <span>Kota Dumai, Riau — Hubungi kami untuk informasi titik penjemputan dan pengantaran di area Dumai.</span>
-        </div>
-        <div class="b-card__hours">
-          <span>🕐</span> Buka Setiap Hari — 24 Jam
-        </div>
-        <div class="b-card__actions">
-          <a href="https://wa.me/6285358363148" class="btn btn-wa" target="_blank" rel="noopener">WhatsApp</a>
-          <a href="tel:085358363148" class="btn btn-ghost">Telepon</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ── RUTE ─────────────────────────────────────────────────────────── -->
-<section class="rute" id="rute">
-  <div class="container">
-    <div class="rute__head">
-      <span class="section-label">Pilihan Destinasi</span>
-      <h2 class="section-title">Rute Tersedia</h2>
+    <div class="tujuan__head">
+      <span class="section-label">Daftar tujuan</span>
+      <h2 class="section-title">Mau turun di mana?</h2>
       <div class="divider"></div>
     </div>
-
-    <div class="rute__tabs" role="tablist">
-      <button class="rute__tab active" role="tab" aria-selected="true"  onclick="switchTab(this,'dari-medan')">Dari Medan</button>
-      <button class="rute__tab"        role="tab" aria-selected="false" onclick="switchTab(this,'dari-dumai')">Dari Dumai</button>
+    <div class="tujuan__bar">
+      <button class="swap" id="swap" type="button" aria-label="Tukar arah keberangkatan">
+        <span>Berangkat dari <b id="originLbl">Medan</b></span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h15m0 0-4-4m4 4-4 4M20 16H5m0 0 4-4m-4 4 4 4"/></svg>
+      </button>
+      <input class="tujuan__q" id="destQ" type="search" placeholder="Cari nama kota" aria-label="Cari tujuan" />
     </div>
-
-    <!-- DARI MEDAN -->
-    <div class="rute__panel active" id="dari-medan">
-      <div class="rute__grid">
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Dumai</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Duri</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Pekanbaru</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Kandis</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Bagan Batu</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Perawang</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Siak</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Balam</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Minas</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Sei Pakning</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Tembilahan</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Medan →</div>
-          <div class="r-card__to">Jambi</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- DARI DUMAI -->
-    <div class="rute__panel" id="dari-dumai">
-      <div class="rute__grid">
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Dumai →</div>
-          <div class="r-card__to">Medan</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Dumai →</div>
-          <div class="r-card__to">Binjai</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Dumai →</div>
-          <div class="r-card__to">Lubuk Pakam</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Dumai →</div>
-          <div class="r-card__to">Tebing Tinggi</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Dumai →</div>
-          <div class="r-card__to">Kisaran</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Dumai →</div>
-          <div class="r-card__to">Tanjung Balai</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Dumai →</div>
-          <div class="r-card__to">Perdagangan</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-        <a href="https://wa.me/6285358363148" class="r-card" target="_blank" rel="noopener">
-          <div class="r-card__from">Travel Dumai →</div>
-          <div class="r-card__to">Stabat</div>
-          <div class="r-card__arrow">Pesan Sekarang ↗</div>
-        </a>
-      </div>
-    </div>
+    <p class="tujuan__count" id="destCount"></p>
+    <div class="tujuan__list" id="destList"></div>
+    <p class="tujuan__kosong" id="destEmpty" hidden>Kota itu belum ada di daftar. <a id="destAsk" href="#" target="_blank" rel="noopener">Tanyakan lewat WhatsApp</a>, kami cek apakah bisa dijemput.</p>
   </div>
 </section>
 
+<section class="band">
+  <div class="container band__inner">
+    <div>
+      <h2 class="band__title">Berangkat malam ini?</h2>
+      <p>Kirim titik jemputmu, kami carikan mobil yang paling dekat.</p>
+    </div>
+    <a href="https://wa.me/6285358363148?text=Halo%2C%20saya%20mau%20berangkat%20malam%20ini." class="btn btn-wa" target="_blank" rel="noopener">Kirim lokasi jemput</a>
+  </div>
+</section>
 
-<!-- ── FOOTER ───────────────────────────────────────────────────────── -->
 <footer class="footer" id="footer">
   <div class="container">
     <div class="footer__grid">
       <div>
         <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logo.png" alt="Travel Medan Dumai" class="footer__logo" />
-        <p class="footer__tagline">
-          Travel Medan Dumai yang jemput di depan pintumu dan antar sampai ke tujuan. Bukan sampai pool.
-        </p>
+        <p class="footer__tagline">Medan dan Dumai tanpa oper-operan: dijemput di rumah, turun tepat di depan tujuan.</p>
       </div>
       <div>
-        <div class="footer__col-title">Navigasi</div>
+        <div class="footer__col-title">Jelajahi</div>
         <div class="footer__links">
           <a href="#top">Beranda</a>
-          <a href="#keunggulan">Keunggulan</a>
-          <a href="#kantor">Pemesanan</a>
+          <a href="#perjalanan">Alur</a>
+          <a href="#pesan">Pesan</a>
           <a href="#rute">Rute</a>
         </div>
       </div>
       <div>
-        <div class="footer__col-title">Hubungi Kami</div>
-        <div class="footer__contact-item">
-          <span>📞</span>
-          <a href="tel:085358363148" style="color:rgba(255,255,255,.55)">085358363148</a>
-        </div>
-        <div class="footer__contact-item">
-          <span>💬</span>
-          <a href="https://wa.me/6285358363148" target="_blank" rel="noopener" style="color:rgba(255,255,255,.55)">WhatsApp 24 Jam</a>
-        </div>
-        <div class="footer__contact-item">
-          <span>📍</span>
-          <span>Jl. Nuri No.14, Medan Denai, Medan</span>
-        </div>
-        <div class="footer__contact-item">
-          <span>🕐</span>
-          <span>REDY SETIAP HARI, 24 JAM</span>
-        </div>
+        <div class="footer__col-title">Kontak</div>
+        <div class="footer__contact-item"><span>Telepon</span> <a href="tel:085358363148" style="color:rgba(255,255,255,.55)">085358363148</a></div>
+        <div class="footer__contact-item"><span>WhatsApp</span> <a href="https://wa.me/6285358363148" target="_blank" rel="noopener" style="color:rgba(255,255,255,.55)">Chat kapan saja</a></div>
+        <div class="footer__contact-item"><span>Titik jemput</span> <span>Dikonfirmasi lewat chat</span></div>
       </div>
     </div>
   </div>
-  <div class="footer__bottom">
-    &copy; 2026 Travel Medan Dumai. Hak Cipta Dilindungi.
-  </div>
+  <div class="footer__bottom">&copy; 2026 Travel Medan Dumai</div>
 </footer>
 
 
@@ -1141,6 +1045,72 @@
 </script>
 
 
+
+<script>
+(function () {
+  var WA = '6285358363148';
+  var data = {
+    Medan: ['Dumai','Duri','Pekanbaru','Kandis','Minas','Siak','Perawang','Balam','Bagan Batu','Bagan Siapi-api','Bengkalis','Sei Pakning','Selat Panjang','Pangkalan Kerinci','Ujung Tanjung','Ujung Batu','Pasir Pengaraian','Bangkinang','Teluk Kuantan','Tembilahan','Rengat','Belilas','Siberida','Keritang','Jambi','Muara Bungo','Palembang','Bandar Lampung','Jakarta'],
+    Dumai: ['Medan','Binjai','Stabat','Lubuk Pakam','Bandara Kualanamu','Sei Rampah','Tebing Tinggi','Pematang Siantar','Indrapura','Kisaran','Tanjung Balai','Aek Kanopan','Perdagangan','Rantau Prapat','Kota Pinang','Berastagi','Kabanjahe','Sibolga','Padang Sidempuan']
+  };
+  Object.keys(data).forEach(function (k) { data[k].sort(function (x, y) { return x.localeCompare(y, 'id'); }); });
+
+  var origin = 'Medan';
+  function wa(text) { return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(text); }
+
+  var list = document.getElementById('destList'), q = document.getElementById('destQ'),
+      empty = document.getElementById('destEmpty'), count = document.getElementById('destCount'),
+      lbl = document.getElementById('originLbl'), ask = document.getElementById('destAsk');
+
+  function render() {
+    var term = q.value.trim().toLowerCase();
+    var items = data[origin].filter(function (d) { return d.toLowerCase().indexOf(term) > -1; });
+    list.innerHTML = '';
+    items.forEach(function (d, i) {
+      var a = document.createElement('a');
+      a.className = 'dest'; a.target = '_blank'; a.rel = 'noopener';
+      a.style.setProperty('--i', i);
+      a.href = wa('Halo, saya mau berangkat dari ' + origin + ' ke ' + d + '. Boleh tahu jadwal dan tarifnya?');
+      a.innerHTML = '<span>' + d + '</span><small>dari ' + origin + '</small>';
+      list.appendChild(a);
+    });
+    lbl.textContent = origin;
+    count.textContent = items.length + ' tujuan dari ' + origin;
+    empty.hidden = items.length > 0;
+    ask.href = wa('Halo, apakah bisa berangkat dari ' + origin + ' ke ' + (q.value.trim() || 'kota lain') + '?');
+  }
+  document.getElementById('swap').addEventListener('click', function () {
+    origin = origin === 'Medan' ? 'Dumai' : 'Medan'; render();
+  });
+  q.addEventListener('input', render);
+  render();
+
+  /* datalist + form */
+  var dl = document.getElementById('kota'), seen = {};
+  ['Medan','Dumai'].concat(data.Medan, data.Dumai).forEach(function (k) {
+    if (seen[k]) return; seen[k] = 1;
+    var o = document.createElement('option'); o.value = k; dl.appendChild(o);
+  });
+  var tgl = document.getElementById('fTgl');
+  var now = new Date(), pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  tgl.min = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+
+  document.getElementById('pesanForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = function (id) { return document.getElementById(id).value.trim(); };
+    var d = new Date(v('fTgl') + 'T00:00:00');
+    var tanggal = isNaN(d) ? v('fTgl') : d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    var msg = ['Halo, saya mau pesan seat travel.', '',
+      'Nama: ' + v('fNama'),
+      'Rute: ' + v('fAsal') + ' ke ' + v('fTujuan'),
+      'Tanggal: ' + tanggal,
+      'Waktu: ' + v('fJam'),
+      'Penumpang: ' + v('fOrang') + ' orang',
+      'Alamat jemput: ' + v('fAlamat')].join('\n');
+    window.open(wa(msg), '_blank', 'noopener');
+  });
+})();
+</script>
 <script>
 (function () {
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1183,6 +1153,7 @@
     title.appendChild(frag);
   }
 
+
   /* hitung naik untuk statistik */
   if (!reduce) {
     document.querySelectorAll('.hero__stat-num').forEach(function (el) {
@@ -1210,8 +1181,9 @@
       el.style.setProperty('--d', ((n % 4) * (step || 90)) + 'ms');
     });
   }
-  tag('.keunggulan__head, .booking__head, .rute__head, .rute__tabs, .strip__inner, .footer__bottom', 0);
-  tag('.k-card'); tag('.b-card', 120); tag('.r-card', 60); tag('.footer__grid > *', 100);
+  tag('.jalur__head, .pesan__side, .tujuan__head, .tujuan__bar, .band__inner, .footer__bottom', 0);
+  tag('.step'); document.querySelectorAll('.step').forEach(function (s, i) { s.style.setProperty('--d', (i * 140) + 'ms'); });
+  tag('.bekal li', 70); tag('.form', 0); tag('.footer__grid > *', 100);
 
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
@@ -1222,22 +1194,9 @@
     if (reduce) el.classList.add('in'); else io.observe(el);
   });
 
-  if (!fine || reduce) return;
+  document.querySelectorAll('[data-draw]').forEach(function (el) { if (reduce) el.classList.add('in'); else io.observe(el); });
 
-  /* tilt kartu */
-  document.querySelectorAll('.k-card, .b-card').forEach(function (c) {
-    c.addEventListener('pointermove', function (e) {
-      var r = c.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      c.style.transition = '';
-      c.style.transform = 'perspective(900px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
-    });
-    c.addEventListener('pointerleave', function () {
-      c.style.transition = 'transform .45s cubic-bezier(.2,.8,.2,1)';
-      c.style.transform = '';
-      setTimeout(function () { c.style.transition = ''; }, 470);
-    });
-  });
+  if (!fine || reduce) return;
 
   /* tombol magnet */
   document.querySelectorAll('.btn').forEach(function (b) {
