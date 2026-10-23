@@ -710,6 +710,23 @@
       border: 2px solid #25D366; opacity: 0; pointer-events: none;
       animation: ring 2.2s ease-out infinite;
     }
+
+    /* mobil di atas jalan: roda berputar, bodi bergetar halus */
+    .hero__logo-wrap { --fx: 59.8%; --fy: 62.5%; --fs: 17.5%; --fsx: .66;
+                       --rx: 85.5%; --ry: 52.4%; --rs: 13%;   --rsx: .5;
+                       --road: 71.5%; }
+    .hero__logo-wrap img { animation: none; }
+    .car { position: relative; z-index: 1; animation: bounce .38s ease-in-out infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+    .hero__logo-wrap::after { bottom: auto; top: var(--road); animation-name: roadRight; }
+    @keyframes roadRight { to { background-position: 62px 0; } }
+    .wheel { position: absolute; z-index: 2; pointer-events: none; aspect-ratio: 1; }
+    .wheel svg { display: block; width: 100%; height: 100%; animation: spin 1.1s linear infinite; }
+    .wheel--front { left: var(--fx); top: var(--fy); width: var(--fs);
+                    transform: translate(-50%, -50%) scaleX(var(--fsx)); }
+    .wheel--rear  { left: var(--rx); top: var(--ry); width: var(--rs);
+                    transform: translate(-50%, -50%) scaleX(var(--rsx)); }
+    @keyframes spin { to { transform: rotate(-360deg); } }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -1183,6 +1200,26 @@
     title.appendChild(frag);
   }
 
+
+  /* mobil: bungkus gambar + pasang roda */
+  var im = document.querySelector('.hero__logo-wrap img');
+  if (im) {
+    var carEl = document.createElement('div');
+    carEl.className = 'car';
+    im.parentNode.insertBefore(carEl, im);
+    carEl.appendChild(im);
+    var wsvg = '<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="49" fill="#14171c"/><circle cx="50" cy="50" r="35" fill="#3b424b"/>'
+      + '<g stroke="#a9b2bd" stroke-width="6" stroke-linecap="round">'
+      + '<line x1="50" y1="50" x2="50" y2="18"/><line x1="50" y1="50" x2="80" y2="40"/><line x1="50" y1="50" x2="69" y2="76"/>'
+      + '<line x1="50" y1="50" x2="31" y2="76"/><line x1="50" y1="50" x2="20" y2="40"/></g>'
+      + '<circle cx="50" cy="12" r="4" fill="#00C2D4"/><circle cx="50" cy="50" r="8" fill="#14171c"/></svg>';
+    ['front', 'rear'].forEach(function (k) {
+      var w = document.createElement('div');
+      w.className = 'wheel wheel--' + k;
+      w.innerHTML = wsvg;
+      carEl.appendChild(w);
+    });
+  }
   /* hitung naik untuk statistik */
   if (!reduce) {
     document.querySelectorAll('.hero__stat-num').forEach(function (el) {
@@ -1249,11 +1286,11 @@
   });
 
   /* parallax mobil mengikuti kursor */
-  var car = document.querySelector('.hero__logo-wrap img'), hero = document.getElementById('hero');
+  var car = document.querySelector('.hero__logo-wrap .car'), hero = document.getElementById('hero');
   if (car && hero) {
     var tx = 0, ty = 0, cx = 0, cy = 0;
     hero.addEventListener('pointermove', function (e) {
-      tx = (e.clientX / innerWidth - .5) * 26; ty = (e.clientY / innerHeight - .5) * 14;
+      tx = (e.clientX / innerWidth - .5) * 14; ty = (e.clientY / innerHeight - .5) * 4;
     });
     hero.addEventListener('pointerleave', function () { tx = ty = 0; });
     (function loop() {
