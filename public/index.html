@@ -354,6 +354,16 @@
       box-shadow: 0 12px 40px rgba(0,194,212,.12);
       border-color: var(--teal);
     }
+
+    /* ── 3D TILT ────────────────────────────────────────────── */
+    .keunggulan__grid { perspective: 900px; }
+    .k-card { position: relative; }
+    .k-glare {
+      position: absolute; inset: 0; border-radius: inherit;
+      pointer-events: none; z-index: 2; opacity: 0;
+      transition: opacity .3s;
+    }
+    .k-card:hover .k-glare { opacity: 1; }
     .k-card__icon {
       width: 52px; height: 52px;
       background: var(--teal-glow);
@@ -690,6 +700,23 @@
       transition: transform .35s cubic-bezier(.2,.8,.2,1);
     }
     .header__nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    /* ── SCROLLSPY — Motion Prompt #150 adaptation ─────────── */
+    /* active state: teal pill bg + inset left bar + underline locked */
+    .header__nav a.spy-active {
+      color: var(--teal);
+      font-weight: 700;
+      background: var(--teal-glow);
+      box-shadow: inset 3px 0 0 var(--teal);
+      transition: color .25s cubic-bezier(.215,.61,.355,1),
+                  background .25s cubic-bezier(.215,.61,.355,1),
+                  box-shadow .25s cubic-bezier(.215,.61,.355,1);
+    }
+    .header__nav a.spy-active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+      transition: none; /* already at target — skip rewind */
+    }
 
     /* tombol: kilau + magnet */
     .btn {
@@ -1317,5 +1344,96 @@
 })();
 </script>
 
+<script>
+/* 3D card tilt — kartu keunggulan mengikuti kursor */
+(function () {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var MAX = 12; /* derajat maks rotasi */
+
+  document.querySelectorAll('.k-card').forEach(function (card) {
+    /* inject elemen glare ke tiap kartu */
+    var glare = document.createElement('div');
+    glare.className = 'k-glare';
+    card.appendChild(glare);
+
+    card.addEventListener('mousemove', function (e) {
+      var r  = card.getBoundingClientRect();
+      var x  = (e.clientX - r.left) / r.width;   /* 0 → 1 */
+      var y  = (e.clientY - r.top)  / r.height;  /* 0 → 1 */
+      var rx = (0.5 - y) * MAX * 2;              /* atas dekat = miring ke depan */
+      var ry = (x - 0.5) * MAX * 2;              /* kanan = miring ke kanan */
+
+      card.style.transition = 'transform .06s linear, box-shadow .2s, border-color .2s';
+      card.style.transform  =
+        'rotateX(' + rx.toFixed(2) + 'deg) ' +
+        'rotateY(' + ry.toFixed(2) + 'deg) ' +
+        'translateZ(6px)';
+
+      /* glare teal mengikuti posisi kursor */
+      glare.style.background =
+        'radial-gradient(circle at ' +
+        (x * 100).toFixed(1) + '% ' + (y * 100).toFixed(1) + '%, ' +
+        'rgba(0,194,212,.22) 0%, rgba(255,255,255,.05) 45%, transparent 70%)';
+    });
+
+    card.addEventListener('mouseleave', function () {
+      card.style.transition = 'transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .2s, border-color .2s';
+      card.style.transform  = '';
+      glare.style.background = '';
+    });
+  });
+}());
+</script>
+
+<script>
+/* Scrollspy — Motion Prompt #150 adaptation (MIT)
+   Trigger line: 40 px below viewport top, matching the spec.
+   Active item = last section whose top has crossed the trigger. */
+(function () {
+  var TRIGGER = 40;
+
+  /* Map nav href → section element.
+     #top points to the header; use the hero section for geometry. */
+  var map = [
+    { href: '#top',        id: 'hero' },
+    { href: '#perjalanan', id: 'perjalanan' },
+    { href: '#pesan',      id: 'pesan' },
+    { href: '#rute',       id: 'rute' },
+    { href: '#footer',     id: 'footer' }
+  ].map(function (s) {
+    return { href: s.href, el: document.getElementById(s.id) };
+  }).filter(function (s) { return s.el; });
+
+  var links = Array.prototype.slice.call(
+    document.querySelectorAll('.header__nav a')
+  );
+
+  var current = null;
+
+  function spy() {
+    var active = map[0].href; /* default: top */
+    map.forEach(function (s) {
+      if (s.el.getBoundingClientRect().top <= TRIGGER) active = s.href;
+    });
+    if (active === current) return;
+    current = active;
+    links.forEach(function (a) {
+      a.classList.toggle('spy-active', a.getAttribute('href') === active);
+    });
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(function () { spy(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  spy(); /* run once on load */
+}());
+</script>
 </body>
 </html>
