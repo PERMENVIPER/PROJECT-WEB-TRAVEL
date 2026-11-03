@@ -626,7 +626,7 @@
       .hamburger { display: flex; }
       .hero__grid { grid-template-columns: 1fr; text-align: center; }
       .hero__visual { order: -1; }
-      .hero__logo-wrap { max-width: 100%; margin-inline: auto; }
+      .hero__logo-wrap { max-width: 280px; margin-inline: auto; }
       .hero__actions { justify-content: center; }
       .hero__stats { justify-content: center; gap: 28px; }
       .hero__desc { margin-inline: auto; }
@@ -666,8 +666,17 @@
     .wi { display: inline-block; animation: wordUp 1s cubic-bezier(.2,.8,.2,1) backwards;
           animation-delay: calc(var(--i, 0) * 110ms + 150ms); }
 
-    /* mobil masuk dari kanan */
+    /* mobil masuk dari kanan + jalan bergerak di bawahnya */
     .hero__logo-wrap { animation: driveIn 1.3s cubic-bezier(.16,.9,.3,1) .35s backwards; }
+    .hero__logo-wrap::after {
+      content: ''; position: absolute; left: -12%; right: -12%; bottom: -30px; height: 3px;
+      background: repeating-linear-gradient(90deg, var(--teal) 0 26px, transparent 26px 62px);
+      opacity: .55;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+      animation: road .5s linear infinite;
+    }
+    @keyframes road { to { background-position: -62px 0; } }
 
     /* reveal saat scroll */
     @keyframes reveal { from { opacity: 0; translate: 0 38px; scale: .96; filter: blur(6px); } }
@@ -884,12 +893,7 @@
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
 
-    /* ── CAR CAROUSEL — Motion Prompt #058 ─────────────────── */
-    /* Peek neighbours at edges, easeInOutCubic slide, round arrow buttons */
-
-    .car-slider-wrap {
-      position: relative;
-    }
+    /* ── CAR SLIDER ────────────────────────────────────────── */
     .car-slider {
       overflow: hidden;
       width: 100%;
@@ -897,98 +901,53 @@
     }
     .car-track {
       display: flex;
-      gap: 18px;
-      /* transform set by JS: easeInOutCubic 0.4 s */
-      transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: transform 0.65s cubic-bezier(.4, 0, .2, 1);
       will-change: transform;
     }
     .car-slide {
-      flex-shrink: 0;
-      /* width injected by JS so peek + gap calc is exact */
-      height: clamp(180px, 42vw, 360px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      flex: 0 0 100%;
+      min-width: 0;
     }
     .car-slide img {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center center;
       animation: float 4s ease-in-out infinite;
-      filter: drop-shadow(0 16px 32px rgba(0,194,212,.28));
+      filter: drop-shadow(0 20px 40px rgba(0,194,212,.3));
       position: relative;
       z-index: 1;
       user-select: none;
       -webkit-user-drag: none;
-      display: block;
     }
-    .car-slide:nth-child(2) img { animation-delay: -1.5s; }
-    .car-slide:nth-child(3) img { animation-delay: -3s; }
+    .car-slide:nth-child(2) img { animation-delay: -1.33s; }
+    .car-slide:nth-child(3) img { animation-delay: -2.66s; }
 
-    /* nav arrows — white round buttons, shadow blur 10, r18 */
-    .car-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.96);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,.22);
-      z-index: 10;
-      transition: transform .15s, box-shadow .15s, background .15s;
-    }
-    .car-nav:hover {
-      transform: translateY(-50%) scale(1.12);
-      box-shadow: 0 4px 18px rgba(0,0,0,.32);
-      background: #fff;
-    }
-    .car-prev { left: 6px; }
-    .car-next { right: 6px; }
-    .car-nav svg {
-      width: 14px; height: 14px;
-      stroke: #444;
-      fill: none;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* dots — spec: active 16×8 blue pill, inactive 8×8 r4 */
     .car-dots {
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 6px;
-      margin-top: 16px;
+      gap: 8px;
+      margin-top: 18px;
     }
     .car-dot {
+      height: 4px;
+      width: 28px;
+      background: rgba(255,255,255,.22);
+      border-radius: 2px;
       border: none;
       cursor: pointer;
       padding: 0;
-      border-radius: 4px;
-      height: 8px;
-      width: 8px;
-      background: rgba(255,255,255,.28);
-      transition: background .3s, width .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: background .3s, width .4s cubic-bezier(.4,0,.2,1);
     }
     .car-dot.active {
       background: var(--teal);
-      width: 16px;
+      width: 44px;
     }
     .car-label {
       text-align: center;
-      margin-top: 10px;
-      font-size: .76rem;
+      margin-top: 12px;
+      font-size: .78rem;
       font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.38);
+      color: rgba(255,255,255,.4);
       min-height: 1.2em;
       transition: opacity .25s;
     }
@@ -1068,32 +1027,19 @@
 
     <div class="hero__visual">
       <div class="hero__logo-wrap">
-        <div class="car-slider-wrap">
-          <!-- left arrow -->
-          <button class="car-nav car-prev" id="carPrev" aria-label="Sebelumnya">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-
-          <div class="car-slider">
-            <div class="car-track" id="carTrack">
-              <div class="car-slide">
-                <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logocalya.png" alt="Toyota Calya" />
-              </div>
-              <div class="car-slide">
-                <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logoavanza.png" alt="Toyota Avanza" />
-              </div>
-              <div class="car-slide">
-                <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logoinova.png" alt="Toyota Innova" />
-              </div>
+        <div class="car-slider">
+          <div class="car-track" id="carTrack">
+            <div class="car-slide">
+              <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logocalya.png" alt="Toyota Calya" />
+            </div>
+            <div class="car-slide">
+              <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logoavanza.png" alt="Toyota Avanza" />
+            </div>
+            <div class="car-slide">
+              <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logoinova.png" alt="Toyota Innova" />
             </div>
           </div>
-
-          <!-- right arrow -->
-          <button class="car-nav car-next" id="carNext" aria-label="Berikutnya">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
         </div>
-
         <div class="car-dots" id="carDots">
           <button class="car-dot active" data-idx="0" aria-label="Toyota Calya"></button>
           <button class="car-dot" data-idx="1" aria-label="Toyota Avanza"></button>
@@ -1519,96 +1465,69 @@
 </script>
 
 <script>
-/* ── Car Carousel — Motion Prompt #058 (MIT) ────────────────
-   Peek neighbours, easeInOutCubic 0.4 s, 4.5 s cycle,
-   round arrow buttons, spec dots: active 16×8, rest 8×8      */
+/* ── Car Carousel ─────────────────────────────────────────── */
 (function () {
-  var slider  = document.querySelector('.car-slider');
   var track   = document.getElementById('carTrack');
-  var slides  = document.querySelectorAll('.car-slide');
   var dots    = document.querySelectorAll('.car-dot');
   var label   = document.getElementById('carLabel');
-  var prevBtn = document.getElementById('carPrev');
-  var nextBtn = document.getElementById('carNext');
-  if (!track || !slider) return;
+  if (!track) return;
 
   var names   = ['Toyota Calya', 'Toyota Avanza', 'Toyota Innova'];
-  var total   = 3;
   var current = 0;
-  var PEEK    = 40;   /* px each side — neighbours peek in */
-  var GAP     = 18;   /* px gap between slides, per spec    */
-  var CYCLE   = 4500; /* ms auto-advance cycle              */
+  var total   = 3;
   var timer;
 
-  /* layout: compute slide width from container, set CSS widths + initial translate */
-  function layout(animate) {
-    var w  = slider.offsetWidth;
-    var sw = w - 2 * (PEEK + GAP);          /* slide width                  */
-    slides.forEach(function (s) { s.style.width = sw + 'px'; });
-    var offset = (PEEK + GAP) - current * (sw + GAP);
-    track.style.transition = animate ? 'transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1)' : 'none';
-    track.style.transform  = 'translateX(' + offset + 'px)';
-  }
-
-  function goTo(idx, animate) {
+  function goTo(idx) {
     current = ((idx % total) + total) % total;
-    layout(animate !== false);
-    /* dots */
-    dots.forEach(function (d, i) { d.classList.toggle('active', i === current); });
-    /* label fade */
+    track.style.transform = 'translateX(-' + (100 * current) + '%)';
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === current);
+    });
     if (label) {
       label.style.opacity = '0';
       setTimeout(function () {
-        label.textContent  = names[current];
+        label.textContent = names[current];
         label.style.opacity = '1';
       }, 200);
     }
   }
 
   function next() { goTo(current + 1); }
-  function prev() { goTo(current - 1); }
 
-  /* initial paint */
-  goTo(0, false);
+  timer = setInterval(next, 4000);
 
-  /* re-layout on resize */
-  var resizeTimer;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () { layout(false); }, 80);
-  });
-
-  /* auto-advance */
-  timer = setInterval(next, CYCLE);
-
-  /* arrow buttons */
-  if (prevBtn) prevBtn.addEventListener('click', function () { clearInterval(timer); prev(); timer = setInterval(next, CYCLE); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { clearInterval(timer); next(); timer = setInterval(next, CYCLE); });
-
-  /* dot clicks */
   dots.forEach(function (d) {
     d.addEventListener('click', function () {
       clearInterval(timer);
       goTo(+d.getAttribute('data-idx'));
-      timer = setInterval(next, CYCLE);
+      timer = setInterval(next, 4000);
     });
   });
 
-  /* touch swipe */
+  /* touch swipe support */
   var startX = null;
-  slider.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
-  slider.addEventListener('touchend', function (e) {
-    if (startX === null) return;
-    var dx = e.changedTouches[0].clientX - startX;
-    if (Math.abs(dx) > 36) { clearInterval(timer); goTo(current + (dx < 0 ? 1 : -1)); timer = setInterval(next, CYCLE); }
-    startX = null;
-  }, { passive: true });
-
-  /* pause on hover */
-  var wrap = document.querySelector('.hero__logo-wrap');
+  var wrap = document.querySelector('.car-slider');
   if (wrap) {
-    wrap.addEventListener('mouseenter', function () { clearInterval(timer); });
-    wrap.addEventListener('mouseleave', function () { timer = setInterval(next, CYCLE); });
+    wrap.addEventListener('touchstart', function (e) {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+    wrap.addEventListener('touchend', function (e) {
+      if (startX === null) return;
+      var dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) {
+        clearInterval(timer);
+        goTo(current + (dx < 0 ? 1 : -1));
+        timer = setInterval(next, 4000);
+      }
+      startX = null;
+    }, { passive: true });
+  }
+
+  /* pause on hover (desktop) */
+  var logoWrap = document.querySelector('.hero__logo-wrap');
+  if (logoWrap) {
+    logoWrap.addEventListener('mouseenter', function () { clearInterval(timer); });
+    logoWrap.addEventListener('mouseleave', function () { timer = setInterval(next, 4000); });
   }
 })();
 </script>
