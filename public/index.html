@@ -887,7 +887,8 @@
 
     /* ── CAR SLIDER ────────────────────────────────────────── */
     .car-slider {
-      overflow: hidden;
+      overflow-x: clip;
+      overflow-y: visible;
       width: 100%;
       position: relative;
     }
@@ -902,8 +903,7 @@
     }
     .car-slide img {
       width: 100%;
-      height: 200px;
-      object-fit: contain;
+      display: block;
       animation: float 4s ease-in-out infinite;
       filter: drop-shadow(0 20px 40px rgba(0,194,212,.3));
       position: relative;
