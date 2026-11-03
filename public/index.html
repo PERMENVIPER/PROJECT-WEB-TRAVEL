@@ -905,13 +905,26 @@
     .car-slide img {
       width: 100%;
       display: block;
-      animation: float 4s ease-in-out infinite;
+      --car-offset: 0px;
+      animation: carFloat 4s ease-in-out infinite;
       filter: none;
       position: relative;
       z-index: 1;
       user-select: none;
       -webkit-user-drag: none;
     }
+
+    /* Sesuaikan posisi mobil yang tampak agar sejajar meski PNG
+       memiliki ruang transparan yang berbeda-beda. */
+    .car-slide:nth-child(1) img { --car-offset: 80px; }
+    .car-slide:nth-child(2) img { --car-offset: 0px; }
+    .car-slide:nth-child(3) img { --car-offset: -55px; }
+
+    @keyframes carFloat {
+      0%, 100% { transform: translateY(var(--car-offset)); }
+      50% { transform: translateY(calc(var(--car-offset) - 16px)); }
+    }
+
     .car-slide:nth-child(2) img { animation-delay: -1.33s; }
     .car-slide:nth-child(3) img { animation-delay: -2.66s; }
 
