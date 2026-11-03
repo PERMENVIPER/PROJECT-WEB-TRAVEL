@@ -668,14 +668,6 @@
 
     /* mobil masuk dari kanan + jalan bergerak di bawahnya */
     .hero__logo-wrap { animation: driveIn 1.3s cubic-bezier(.16,.9,.3,1) .35s backwards; }
-    .hero__logo-wrap::after {
-      content: ''; position: absolute; left: -12%; right: -12%; bottom: -30px; height: 3px;
-      background: repeating-linear-gradient(90deg, var(--teal) 0 26px, transparent 26px 62px);
-      opacity: .55;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
-              mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
-      animation: road .5s linear infinite;
-    }
     @keyframes road { to { background-position: -62px 0; } }
 
     /* reveal saat scroll */
@@ -907,9 +899,15 @@
     .car-slide {
       flex: 0 0 100%;
       min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 240px;
     }
     .car-slide img {
       width: 100%;
+      max-height: 240px;
+      object-fit: contain;
       animation: float 4s ease-in-out infinite;
       filter: drop-shadow(0 20px 40px rgba(0,194,212,.3));
       position: relative;
