@@ -892,6 +892,65 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
+
+    /* ── CAR SLIDER ────────────────────────────────────────── */
+    .car-slider {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
+    .car-track {
+      display: flex;
+      transition: transform 0.65s cubic-bezier(.4, 0, .2, 1);
+      will-change: transform;
+    }
+    .car-slide {
+      flex: 0 0 100%;
+      min-width: 0;
+    }
+    .car-slide img {
+      width: 100%;
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 20px 40px rgba(0,194,212,.3));
+      position: relative;
+      z-index: 1;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .car-slide:nth-child(2) img { animation-delay: -1.33s; }
+    .car-slide:nth-child(3) img { animation-delay: -2.66s; }
+
+    .car-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .car-dot {
+      height: 4px;
+      width: 28px;
+      background: rgba(255,255,255,.22);
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background .3s, width .4s cubic-bezier(.4,0,.2,1);
+    }
+    .car-dot.active {
+      background: var(--teal);
+      width: 44px;
+    }
+    .car-label {
+      text-align: center;
+      margin-top: 12px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      min-height: 1.2em;
+      transition: opacity .25s;
+    }
   </style>
 </head>
 <body>
@@ -968,7 +1027,25 @@
 
     <div class="hero__visual">
       <div class="hero__logo-wrap">
-        <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logomobil.png" alt="Armada Travel Medan Dumai" />
+        <div class="car-slider">
+          <div class="car-track" id="carTrack">
+            <div class="car-slide">
+              <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logocalya.png" alt="Toyota Calya" />
+            </div>
+            <div class="car-slide">
+              <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logoavanza.png" alt="Toyota Avanza" />
+            </div>
+            <div class="car-slide">
+              <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logoinova.png" alt="Toyota Innova" />
+            </div>
+          </div>
+        </div>
+        <div class="car-dots" id="carDots">
+          <button class="car-dot active" data-idx="0" aria-label="Toyota Calya"></button>
+          <button class="car-dot" data-idx="1" aria-label="Toyota Avanza"></button>
+          <button class="car-dot" data-idx="2" aria-label="Toyota Innova"></button>
+        </div>
+        <div class="car-label" id="carLabel">Toyota Calya</div>
       </div>
     </div>
   </div>
@@ -1328,7 +1405,7 @@
   });
 
   /* parallax mobil mengikuti kursor */
-  var car = document.querySelector('.hero__logo-wrap img'), hero = document.getElementById('hero');
+  var car = document.querySelector('.hero__logo-wrap'), hero = document.getElementById('hero');
   if (car && hero) {
     var tx = 0, ty = 0, cx = 0, cy = 0;
     hero.addEventListener('pointermove', function (e) {
@@ -1385,6 +1462,74 @@
     });
   });
 }());
+</script>
+
+<script>
+/* ── Car Carousel ─────────────────────────────────────────── */
+(function () {
+  var track   = document.getElementById('carTrack');
+  var dots    = document.querySelectorAll('.car-dot');
+  var label   = document.getElementById('carLabel');
+  if (!track) return;
+
+  var names   = ['Toyota Calya', 'Toyota Avanza', 'Toyota Innova'];
+  var current = 0;
+  var total   = 3;
+  var timer;
+
+  function goTo(idx) {
+    current = ((idx % total) + total) % total;
+    track.style.transform = 'translateX(-' + (100 * current) + '%)';
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === current);
+    });
+    if (label) {
+      label.style.opacity = '0';
+      setTimeout(function () {
+        label.textContent = names[current];
+        label.style.opacity = '1';
+      }, 200);
+    }
+  }
+
+  function next() { goTo(current + 1); }
+
+  timer = setInterval(next, 4000);
+
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () {
+      clearInterval(timer);
+      goTo(+d.getAttribute('data-idx'));
+      timer = setInterval(next, 4000);
+    });
+  });
+
+  /* touch swipe support */
+  var startX = null;
+  var wrap = document.querySelector('.car-slider');
+  if (wrap) {
+    wrap.addEventListener('touchstart', function (e) {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+    wrap.addEventListener('touchend', function (e) {
+      if (startX === null) return;
+      var dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) {
+        clearInterval(timer);
+        goTo(current + (dx < 0 ? 1 : -1));
+        timer = setInterval(next, 4000);
+      }
+      startX = null;
+    }, { passive: true });
+  }
+
+  /* pause on hover (desktop) */
+  var logoWrap = document.querySelector('.hero__logo-wrap');
+  if (logoWrap) {
+    logoWrap.addEventListener('mouseenter', function () { clearInterval(timer); });
+    logoWrap.addEventListener('mouseleave', function () { timer = setInterval(next, 4000); });
+  }
+})();
 </script>
 
 <script>
