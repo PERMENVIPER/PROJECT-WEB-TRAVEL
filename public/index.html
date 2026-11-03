@@ -914,6 +914,27 @@
     }
     .car-slide:nth-child(2) img { animation-delay: -1.33s; }
     .car-slide:nth-child(3) img { animation-delay: -2.66s; }
+
+    .car-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .car-dot {
+      height: 4px;
+      width: 28px;
+      background: rgba(255,255,255,.22);
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background .3s, width .4s cubic-bezier(.4,0,.2,1);
+    }
+    .car-dot.active {
+      background: var(--teal);
+      width: 44px;
+    }
 .car-label {
       text-align: center;
       margin-top: 12px;
@@ -1013,6 +1034,11 @@
               <img src="https://raw.githubusercontent.com/PERMENVIPER/PROJECT-WEB-TRAVEL/main/logoinova.png" alt="Toyota Innova" />
             </div>
           </div>
+        </div>
+        <div class="car-dots" id="carDots">
+          <button class="car-dot active" data-idx="0" aria-label="Toyota Calya"></button>
+          <button class="car-dot" data-idx="1" aria-label="Toyota Avanza"></button>
+          <button class="car-dot" data-idx="2" aria-label="Toyota Innova"></button>
         </div>
         <div class="car-label" id="carLabel">Toyota Calya</div>
       </div>
