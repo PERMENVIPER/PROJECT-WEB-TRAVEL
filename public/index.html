@@ -885,6 +885,19 @@
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
 
+    /* Hapus elemen garis/jalur dekoratif di area slider mobil */
+    #hero .road,
+    #hero .road-line,
+    #hero .road-lines,
+    #hero .road-markings,
+    #hero .car-road,
+    #hero .car-road-line,
+    #hero .hero-road,
+    #hero .hero__road,
+    #hero .road-decoration {
+      display: none !important;
+    }
+
     /* ── CAR SLIDER ────────────────────────────────────────── */
     .car-slider {
       overflow-x: clip;
