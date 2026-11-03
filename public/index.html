@@ -805,6 +805,8 @@
 
     /* Light sweep - after "Motion Prompt #022" (c) 2026 Shohei Ohtaki, MIT License */
     .sheen { position: relative; }
+    /* header sudah fixed — pastikan tidak ter-override oleh .sheen */
+    .header.sheen { position: fixed; }
     .btn.sheen { overflow: visible; }
     .btn.sheen::after { display: none; }
     .sheen__clip { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; z-index: 2; }
@@ -1395,9 +1397,20 @@
   document.querySelectorAll('[data-draw]').forEach(function (el) { if (reduce) el.classList.add('in'); else io.observe(el); });
 
   /* light sweep (Motion Prompt #022, MIT) */
-  document.querySelectorAll('.header__brand, .btn-wa, .btn-teal').forEach(function (el, i) {
+  /* header: satu sweep penuh kiri-ke-kanan di seluruh navbar */
+  var headerEl = document.querySelector('.header');
+  if (headerEl) {
+    headerEl.classList.add('sheen');
+    headerEl.style.setProperty('--sd', '0s');
+    headerEl.insertAdjacentHTML('beforeend',
+      '<i class="sheen__clip" aria-hidden="true"><i class="sheen__band"></i></i>' +
+      '<i class="sheen__star" aria-hidden="true"></i>'
+    );
+  }
+  /* tombol tetap pakai sheen sendiri */
+  document.querySelectorAll('.btn-wa, .btn-teal').forEach(function (el, i) {
     el.classList.add('sheen');
-    el.style.setProperty('--sd', (-(i % 4) * 0.6) + 's');
+    el.style.setProperty('--sd', (-((i + 1) % 4) * 0.6) + 's');
     el.insertAdjacentHTML('beforeend', '<i class="sheen__clip" aria-hidden="true"><i class="sheen__band"></i></i><i class="sheen__star" aria-hidden="true"></i>');
   });
 
