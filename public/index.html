@@ -297,22 +297,10 @@
       width: 100%;
       max-width: 440px;
     }
-    .hero__logo-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -30px;
-      background: radial-gradient(circle, rgba(0,194,212,.12) 0%, transparent 70%);
-      border-radius: 50%;
-      animation: glow-rotate 6s linear infinite;
-    }
-    @keyframes glow-rotate {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
     .hero__logo-wrap img {
       width: 100%;
       animation: float 4s ease-in-out infinite;
-      filter: drop-shadow(0 20px 40px rgba(0,194,212,.3));
+      filter: none;
       position: relative;
       z-index: 1;
     }
@@ -918,7 +906,7 @@
       width: 100%;
       display: block;
       animation: float 4s ease-in-out infinite;
-      filter: drop-shadow(0 20px 40px rgba(0,194,212,.3));
+      filter: none;
       position: relative;
       z-index: 1;
       user-select: none;
@@ -926,28 +914,7 @@
     }
     .car-slide:nth-child(2) img { animation-delay: -1.33s; }
     .car-slide:nth-child(3) img { animation-delay: -2.66s; }
-
-    .car-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 18px;
-    }
-    .car-dot {
-      height: 4px;
-      width: 28px;
-      background: rgba(255,255,255,.22);
-      border-radius: 2px;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      transition: background .3s, width .4s cubic-bezier(.4,0,.2,1);
-    }
-    .car-dot.active {
-      background: var(--teal);
-      width: 44px;
-    }
-    .car-label {
+.car-label {
       text-align: center;
       margin-top: 12px;
       font-size: .78rem;
