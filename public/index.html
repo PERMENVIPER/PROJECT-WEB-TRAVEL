@@ -809,7 +809,7 @@
     .btn.sheen::after { display: none; }
     .sheen__clip { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; z-index: 2; }
     .sheen__band {
-      position: absolute; top: -150%; bottom: -150%; left: -188px; width: 148px;
+      position: absolute; top: -150%; bottom: -150%; left: -240px; width: 148px;
       transform: rotate(24deg);
       background:
         linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.72), rgba(255,255,255,0)) 0 0 / 116px 100% no-repeat,
@@ -817,8 +817,8 @@
       animation: sheenSweep 2.35s infinite; animation-delay: var(--sd, 0s);
     }
     @keyframes sheenSweep {
-      0%, 19.15% { left: -188px; animation-timing-function: cubic-bezier(.455,.03,.515,.955); }
-      63.83%, 100% { left: calc(100% + 72px); }
+      0%, 19.15% { left: -240px; animation-timing-function: cubic-bezier(.455,.03,.515,.955); }
+      63.83%, 100% { left: calc(100% + 240px); }
     }
     .sheen__star {
       position: absolute; right: -7px; top: -9px; width: 30px; height: 30px; z-index: 3; pointer-events: none;
